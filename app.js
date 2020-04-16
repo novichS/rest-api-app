@@ -4,6 +4,10 @@ const app = express();
 
 const port = 3000;
 
+const CONTACTS = [
+    {id: 1, name: 'Svitlana', value: 'developer', marked: false}
+]
+
 app.use(express.static(path.resolve(__dirname, 'client')));
 
 app.get('*', (req, res) => {
