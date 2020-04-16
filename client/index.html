@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>rest-api-app</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="container pt-3" id="app">
+    <div class="container pt-3" id="app" v-cloak>
         <h1>Rest Api</h1>
 
         <form class="form-inline mb-3" @submit.prevent="createContact">
@@ -26,15 +31,17 @@
             <button class="btn btn-primary" type="submit">Create</button>
         </form>
 
-        <div class="card mb-3" v-for="contact in contacts">
-            <div class="card-body">
-                <h5 class="card-title">{{contact.name}}</h5>
-                <p class="card-text">{{contact.value}}</p>
-                <button class="btn btn-primary">Cancel</button>
-                <button class="btn btn-danger">Delete</button>
+        <div v-if="contacts.length">
+            <div class="card mb-3" v-for="contact in contacts">
+                <div class="card-body">
+                    <h5 class="card-title" :style="{color: contact.marked ? 'red' : 'black'}">{{contact.name}}</h5>
+                    <p class="card-text">{{contact.value}}</p>
+                    <button class="btn btn-primary" @click="markContact(contact.id)">{{contact.marked ? 'Unmark' : 'Mark it'}}</button>
+                    <button class="btn btn-danger" @click="removeContact(contact.id)">Delete</button>
+                </div>
             </div>
         </div>
-
+        <p v-else>We don't have any contacts yet</p>
     </div>
 
 
