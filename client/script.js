@@ -8,10 +8,13 @@ new Vue({
         name: "",
         value: ""
       },
-      contacts: [
-          {id: 1, name: 'Svitlana', value: 'developer', marked: false}
-      ]
+      contacts: []
     };
+  },
+  computed: {
+    availableCreate() {
+        return this.form.value.trim() && this.form.name.trim()
+    }
   },
   methods: {
     createContact() {
@@ -25,7 +28,8 @@ new Vue({
       contact.marked = !contact.marked;
     },
     removeContact(id) {
-      console.log(id);
+        this.contacts = this.contacts.filter(contact => contact.id === id);
+
     }
   }
 });
